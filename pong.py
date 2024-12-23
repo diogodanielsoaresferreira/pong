@@ -10,10 +10,12 @@ running = True
 game = PongGame(screen)
 
 while running:
+    screen.fill("black")
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
+    game.update()
     game.draw(screen)
     pygame.display.flip()
 
