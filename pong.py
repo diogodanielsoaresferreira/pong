@@ -15,7 +15,8 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    game.update()
+    keys = pygame.key.get_pressed()
+    game.update(keys)
     game.draw(screen)
     pygame.display.flip()
 
