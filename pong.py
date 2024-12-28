@@ -1,24 +1,20 @@
+import sys
 import pygame
 from pong_game import PongGame
 import pygame_menu
 
-pygame.init()
-screen = pygame.display.set_mode((1280, 720))
-clock = pygame.time.Clock()
-
-def run_two_players():
+def run_two_players(screen):
     game = PongGame(screen)
     font = pygame.font.Font(None, 80)
 
     player_1 = 0
     player_2 = 0
 
-    running = True
-    while running:
+    while True:
         screen.fill("black")
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                sys.exit()
 
         keys = pygame.key.get_pressed()
 
@@ -44,12 +40,10 @@ def run_two_players():
 
         clock.tick(60)
 
-    pygame.quit()
-
-
-menu = pygame_menu.Menu('Pong', 400, 300,
-                       theme=pygame_menu.themes.THEME_DARK)
-
+pygame.init()
+screen = pygame.display.set_mode((1280, 720))
+clock = pygame.time.Clock()
+menu = pygame_menu.Menu('Pong', 400, 300, theme=pygame_menu.themes.THEME_DARK)
 menu.add.button('1-Player', pygame_menu.events.EXIT)
-menu.add.button('2-Player', run_two_players)
+menu.add.button('2-Player', lambda: run_two_players(screen))
 menu.mainloop(screen)
