@@ -16,11 +16,13 @@ while running:
             running = False
     
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_r]:
-        game = PongGame(screen)
 
     game.update(keys)
     game.draw(screen)
+
+    if keys[pygame.K_r] or game.is_point_for_player() != 0:
+        game = PongGame(screen)
+
     pygame.display.flip()
 
     clock.tick(60)

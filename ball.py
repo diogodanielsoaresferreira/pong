@@ -24,15 +24,15 @@ class Ball:
         if this.y < 0 or this.y > this.screen.get_height():
             this.dy = -this.dy
         if this.is_paddle_colliding(paddle1):
-            this.calculate_paddle_hit(paddle1)
+            this._calculate_paddle_hit(paddle1)
         if this.is_paddle_colliding(paddle2):
-            this.calculate_paddle_hit(paddle2)
+            this._calculate_paddle_hit(paddle2)
             this.dx = -this.dx
 
     def draw(this, screen: pygame.surface):
         pygame.draw.circle(screen, "white", pygame.Vector2(this.x, this.y), 20)
 
-    def calculate_paddle_hit(this, paddle: Paddle):
+    def _calculate_paddle_hit(this, paddle: Paddle):
         paddle_middle_point = paddle.offset - paddle.height / 2
         relative_position = 2 * (((this.y - paddle_middle_point) / (paddle.height)) - 1)
         relative_angle = relative_position * this.max_angle
