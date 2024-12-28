@@ -22,6 +22,15 @@ class Paddle:
         if this.offset < this.screen.get_height() - this.height:
             this.offset += 10
 
+    def update_pos(this, pos):
+        pos -= this.height / 2
+        if pos < 0:
+            this.offset = 0
+        elif pos >= this.screen.get_height() - this.height:
+            this.offset = this.screen.get_height() - this.height
+        else:
+            this.offset = pos
+
     def draw(this, screen: pygame.surface):
         this.paddle_pos = pygame.Rect(this.left, this.offset, this.width, this.height)
         pygame.draw.rect(screen, "white", this.paddle_pos, 20)

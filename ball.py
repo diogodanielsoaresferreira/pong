@@ -7,12 +7,13 @@ class Ball:
 
     def __init__(this, screen: pygame.surface):
         this.screen = screen
-        this.max_angle = 75
+        this.max_angle = 60
         this.x = screen.get_width() / 2
         this.y = screen.get_height() / 2
         this.ball_velocity_module = 10
-        this.dx = random.randint(1, this.ball_velocity_module/2)
+        this.dx = random.randint(this.ball_velocity_module/2, this.ball_velocity_module)
         this.dy = math.sqrt(this.ball_velocity_module ** 2 - this.dx ** 2)
+        this.dv = 0.1
 
     def is_paddle_colliding(this, paddle: Paddle):
         return paddle.paddle_pos.collidepoint(this.x, this.y)
@@ -35,5 +36,6 @@ class Ball:
         paddle_middle_point = paddle.offset - paddle.height / 2
         relative_position = 2 * (((this.y - paddle_middle_point) / (paddle.height)) - 1)
         relative_angle = relative_position * this.max_angle
+        this.ball_velocity_module += this.dv
         this.dx = this.ball_velocity_module * math.cos(math.radians(relative_angle))
         this.dy = this.ball_velocity_module * math.sin(math.radians(relative_angle))
