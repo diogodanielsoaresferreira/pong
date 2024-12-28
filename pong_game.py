@@ -9,14 +9,18 @@ class PongGame:
         self.paddle2 = Paddle(screen, False)
     
     def update(self, keys: list[bool]):
-        if keys[pygame.K_w]:
+        
+        (_, y) = pygame.mouse.get_rel()
+        
+        if keys[pygame.K_w] or y < 0:
             self.paddle1.move_up()
-        if keys[pygame.K_s]:
+        if keys[pygame.K_s] or y > 0:
             self.paddle1.move_down()
         if keys[pygame.K_UP]:
             self.paddle2.move_up()
         if keys[pygame.K_DOWN]:
             self.paddle2.move_down()
+        
 
         self.ball.update(self.paddle1, self.paddle2)
 
