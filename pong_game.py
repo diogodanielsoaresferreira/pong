@@ -14,9 +14,8 @@ class PongGame:
         self.player2 = player2
     
     def update(self):
-
-        player_1_move = self.player1.calculate_move(self.paddle1)
-        player_2_move = self.player2.calculate_move(self.paddle1)
+        player_1_move = self.player1.calculate_move(self.paddle1, self.ball)
+        player_2_move = self.player2.calculate_move(self.paddle2, self.ball)
 
         if (player_1_move == MovePaddle.UP):
             self.paddle1.move_up()

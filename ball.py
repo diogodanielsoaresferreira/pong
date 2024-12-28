@@ -33,8 +33,8 @@ class Ball:
         pygame.draw.circle(screen, "white", pygame.Vector2(this.x, this.y), 20)
 
     def _calculate_paddle_hit(this, paddle: Paddle):
-        paddle_middle_point = paddle.offset - paddle.height / 2
-        relative_position = 2 * (((this.y - paddle_middle_point) / (paddle.height)) - 1)
+        paddle_middle_point = paddle.get_middle_point()
+        relative_position = ((this.y - paddle_middle_point) / (paddle.height / 2))
         relative_angle = relative_position * this.max_angle
         this.ball_velocity_module += this.dv
         this.dx = this.ball_velocity_module * math.cos(math.radians(relative_angle))

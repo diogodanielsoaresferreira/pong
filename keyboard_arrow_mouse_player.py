@@ -4,7 +4,7 @@ from pong_player import PongPlayer
 from move_paddle import MovePaddle
 from ball import Ball
 
-class KeyboardWSAndMousePlayer(PongPlayer):
+class KeyboardArrowAndMousePlayer(PongPlayer):
     def __init__(self):
         super().__init__()
         self.use_mouse = False
@@ -16,10 +16,10 @@ class KeyboardWSAndMousePlayer(PongPlayer):
 
         keys = pygame.key.get_pressed()
         
-        if keys[pygame.K_w]:
+        if keys[pygame.K_UP]:
             self.use_mouse = False
             return MovePaddle.UP
-        if keys[pygame.K_s]:
+        if keys[pygame.K_DOWN]:
             self.use_mouse = False
             return MovePaddle.DOWN
         

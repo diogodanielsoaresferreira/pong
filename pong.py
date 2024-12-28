@@ -5,6 +5,8 @@ from pong_game import PongGame
 from pong_player import PongPlayer
 from keyboard_arrow_player import KeyboardArrowPlayer
 from keyboard_ws_and_mouse_player import KeyboardWSAndMousePlayer
+from keyboard_arrow_mouse_player import KeyboardArrowAndMousePlayer
+from ai_player import AIPlayer
 
 def run_pong(screen, player_1: PongPlayer, player_2: PongPlayer):
     game = PongGame(screen, player_1, player_2)
@@ -47,6 +49,6 @@ pygame.init()
 screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 menu = pygame_menu.Menu('Pong', 400, 300, theme=pygame_menu.themes.THEME_DARK)
-menu.add.button('1-Player', pygame_menu.events.EXIT)
+menu.add.button('1-Player', lambda: run_pong(screen, KeyboardArrowAndMousePlayer(), AIPlayer()))
 menu.add.button('2-Player', lambda: run_pong(screen, KeyboardWSAndMousePlayer(), KeyboardArrowPlayer()))
 menu.mainloop(screen)

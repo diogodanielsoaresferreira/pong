@@ -1,14 +1,12 @@
-import pygame
-from paddle import Paddle
 from pong_player import PongPlayer
 from move_paddle import MovePaddle
+from paddle import Paddle
 from ball import Ball
 
-class KeyboardArrowPlayer(PongPlayer):
+class AIPlayer(PongPlayer):
     def calculate_move(self, paddle: Paddle, ball: Ball) -> MovePaddle:
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_UP]:
+        if ball.y < paddle.get_middle_point() - paddle.height/4:
             return MovePaddle.UP
-        if keys[pygame.K_DOWN]:
+        if ball.y > paddle.get_middle_point() + paddle.height/4:
             return MovePaddle.DOWN
         return MovePaddle.NONE
