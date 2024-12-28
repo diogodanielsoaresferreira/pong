@@ -1,30 +1,31 @@
 import pygame
 from ball import Ball
 from paddle import Paddle
+from pong_player import PongPlayer
+from move_paddle import MovePaddle
 
 class PongGame:
-    def __init__(self, screen: pygame.surface):
+    def __init__(self, screen: pygame.surface, player1: PongPlayer, player2: PongPlayer):
         self.screen = screen
         self.ball = Ball(screen)
         self.paddle1 = Paddle(screen, True)
         self.paddle2 = Paddle(screen, False)
+        self.player1 = player1
+        self.player2 = player2
     
-    def update(self, keys: list[bool]):
-        
-        (_, y_rel) = pygame.mouse.get_rel()
-        (_, y_pos) = pygame.mouse.get_pos()
-        
-        if keys[pygame.K_w]:
+    def update(self):
+
+        player_1_move = self.player1.calculate_move(self.paddle1)
+        player_2_move = self.player2.calculate_move(self.paddle1)
+
+        if (player_1_move == MovePaddle.UP):
             self.paddle1.move_up()
-        if keys[pygame.K_s]:
+        if (player_1_move == MovePaddle.DOWN):
             self.paddle1.move_down()
-        if keys[pygame.K_UP]:
+        if (player_2_move == MovePaddle.UP):
             self.paddle2.move_up()
-        if keys[pygame.K_DOWN]:
+        if (player_2_move == MovePaddle.DOWN):
             self.paddle2.move_down()
-        
-        if y_rel != 0:
-            self.paddle1.update_pos(y_pos)
 
         self.ball.update(self.paddle1, self.paddle2)
 
