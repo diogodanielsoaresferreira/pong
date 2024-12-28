@@ -30,9 +30,9 @@ class PongGame:
 
     def is_point_for_player(self):
         if self.ball.x < 0:
-            return 1
-        if self.ball.x > self.screen.get_width():
             return 2
+        if self.ball.x > self.screen.get_width():
+            return 1
         return 0
 
     def draw(self, screen: pygame.surface):
