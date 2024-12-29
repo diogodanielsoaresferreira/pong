@@ -3,10 +3,10 @@ import pygame
 import pygame_menu
 from pong_game import PongGame
 from pong_player import PongPlayer
-from keyboard_arrow_player import KeyboardArrowPlayer
-from keyboard_ws_and_mouse_player import KeyboardWSAndMousePlayer
-from keyboard_arrow_mouse_player import KeyboardArrowAndMousePlayer
-from ai_player import AIPlayer
+from player.keyboard_arrow_player import KeyboardArrowPlayer
+from player.keyboard_ws_and_mouse_player import KeyboardWSAndMousePlayer
+from player.keyboard_arrow_mouse_player import KeyboardArrowAndMousePlayer
+from player.ai_player import AIPlayer
 
 def run_pong(screen, player_1: PongPlayer, player_2: PongPlayer):
     game = PongGame(screen, player_1, player_2)
