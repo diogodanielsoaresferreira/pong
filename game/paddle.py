@@ -1,34 +1,32 @@
-import pygame
-
 class Paddle:
-    def __init__(this, screen: pygame.surface, player1: bool):
-        this.screen = screen
-        this.margin = 10
-        this.width = 20
+    def __init__(self, screen_width: int, screen_height: int, player1: bool):
+        self.screen_width = screen_width
+        self.screen_height = screen_height
+        self.margin = 10
+        self.width = 20
         if player1:
-            this.left = this.margin
+            self.left = self.margin
         else:
-            this.left = screen.get_width() - this.margin - this.width
-        this.top = 4 * screen.get_height() / 10
-        this.height = 2 * this.screen.get_height() / 10
-        this.paddle_pos = pygame.Rect(this.left, this.top, this.width, this.height)
+            self.left = screen_width - self.margin - self.width
+        self.top = 4 * screen_height / 10
+        self.height = 2 * screen_height / 10
 
-    def move_up(this):
-        if this.top > 0:
-            this.top -= 10
+    def move_up(self):
+        if self.top > 0:
+            self.top -= 10
 
-    def move_down(this):
-        if this.top < this.screen.get_height() - this.height:
-            this.top += 10
+    def move_down(self):
+        if self.top < self.screen_height - self.height:
+            self.top += 10
 
-    def get_middle_point(this):
-        return this.top + this.height / 2
+    def get_middle_point(self):
+        return self.top + self.height / 2
 
-    def update_pos(this, pos):
-        pos -= this.height / 2
+    def update_pos(self, pos):
+        pos -= self.height / 2
         if pos < 0:
-            this.top = 0
-        elif pos >= this.screen.get_height() - this.height:
-            this.top = this.screen.get_height() - this.height
+            self.top = 0
+        elif pos >= self.screen_height - self.height:
+            self.top = self.screen_height - self.height
         else:
-            this.top = pos
+            self.top = pos

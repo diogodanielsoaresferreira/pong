@@ -16,7 +16,7 @@ SERVER_URI = "ws://localhost:8001"
 
 def run_pong(screen: pygame.surface, player_1: PongPlayer, player_2: PongPlayer):
     game_screen = Screen(screen)
-    game = PongGame(screen, player_1, player_2)
+    game = PongGame(screen.get_width(), screen.get_height(), player_1, player_2)
     clock = pygame.time.Clock()
 
     player_1_score = 0
@@ -28,8 +28,8 @@ def run_pong(screen: pygame.surface, player_1: PongPlayer, player_2: PongPlayer)
             if event.type == pygame.QUIT:
                 sys.exit()
 
-        #game.update()
-        #player_won = game.is_point_for_player()
+        game.update()
+        player_won = game.is_point_for_player()
         player_won = 0
 
         keys = pygame.key.get_pressed()
@@ -37,14 +37,14 @@ def run_pong(screen: pygame.surface, player_1: PongPlayer, player_2: PongPlayer)
         if keys[pygame.K_r]:
             player_1_score = 0
             player_2_score = 0
-            game = PongGame(screen, player_1, player_2)
+            game = PongGame(screen.get_width(), screen.get_height(), player_1, player_2)
 
         if player_won == 1:
             player_1_score += 1
-            game = PongGame(screen, player_1, player_2)
+            game = PongGame(screen.get_width(), screen.get_height(), player_1, player_2)
         elif player_won == 2:
             player_2_score += 1
-            game = PongGame(screen, player_1, player_2)
+            game = PongGame(screen.get_width(), screen.get_height(), player_1, player_2)
 
         game_screen.draw(player_1_score, player_2_score)
         clock.tick(60)

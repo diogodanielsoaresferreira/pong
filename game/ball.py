@@ -1,38 +1,38 @@
 import random
-import pygame
 import math
 from game.paddle import Paddle
 
 class Ball:
 
-    def __init__(this, screen: pygame.surface):
-        this.screen = screen
-        this.max_angle = 60
-        this.x = screen.get_width() / 2
-        this.y = screen.get_height() / 2
-        this.ball_velocity_module = 10
-        this.dx = random.randint(this.ball_velocity_module/2, this.ball_velocity_module)
-        this.dy = math.sqrt(this.ball_velocity_module ** 2 - this.dx ** 2)
-        this.dv = 0.1
+    def __init__(self, screen_width: int, screen_height: int):
+        self.screen_width = screen_width
+        self.screen_height = screen_height
+        self.max_angle = 60
+        self.x = screen_width / 2
+        self.y = screen_height / 2
+        self.ball_velocity_module = 10
+        self.dx = random.randint(self.ball_velocity_module/2, self.ball_velocity_module)
+        self.dy = math.sqrt(self.ball_velocity_module ** 2 - self.dx ** 2)
+        self.dv = 0.1
 
-    def is_paddle_colliding(this, paddle: Paddle):
-        return paddle.paddle_pos.collidepoint(this.x, this.y)
+    def is_paddle_colliding(self, paddle: Paddle):
+        return paddle.paddle_pos.collidepoint(self.x, self.y)
     
-    def update(this, paddle1: Paddle, paddle2: Paddle):
-        this.x += this.dx
-        this.y += this.dy
-        if this.y < 0 or this.y > this.screen.get_height():
-            this.dy = -this.dy
-        if this.is_paddle_colliding(paddle1):
-            this._calculate_paddle_hit(paddle1)
-        if this.is_paddle_colliding(paddle2):
-            this._calculate_paddle_hit(paddle2)
-            this.dx = -this.dx
+    def update(self, paddle1: Paddle, paddle2: Paddle):
+        self.x += self.dx
+        self.y += self.dy
+        if self.y < 0 or self.y > self.screen_height:
+            self.dy = -self.dy
+        if self.is_paddle_colliding(paddle1):
+            self._calculate_paddle_hit(paddle1)
+        if self.is_paddle_colliding(paddle2):
+            self._calculate_paddle_hit(paddle2)
+            self.dx = -self.dx
 
-    def _calculate_paddle_hit(this, paddle: Paddle):
+    def _calculate_paddle_hit(self, paddle: Paddle):
         paddle_middle_point = paddle.get_middle_point()
-        relative_position = ((this.y - paddle_middle_point) / (paddle.height / 2))
-        relative_angle = relative_position * this.max_angle
-        this.ball_velocity_module += this.dv
-        this.dx = this.ball_velocity_module * math.cos(math.radians(relative_angle))
-        this.dy = this.ball_velocity_module * math.sin(math.radians(relative_angle))
+        relative_position = ((self.y - paddle_middle_point) / (paddle.height / 2))
+        relative_angle = relative_position * self.max_angle
+        self.ball_velocity_module += self.dv
+        self.dx = self.ball_velocity_module * math.cos(math.radians(relative_angle))
+        self.dy = self.ball_velocity_module * math.sin(math.radians(relative_angle))

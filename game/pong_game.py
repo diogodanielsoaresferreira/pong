@@ -5,11 +5,12 @@ from player.pong_player import PongPlayer
 from game.move_paddle import MovePaddle
 
 class PongGame:
-    def __init__(self, screen: pygame.surface, player1: PongPlayer, player2: PongPlayer):
-        self.screen = screen
-        self.ball = Ball(screen)
-        self.paddle1 = Paddle(screen, True)
-        self.paddle2 = Paddle(screen, False)
+    def __init__(self, screen_width: int, screen_height: int, player1: PongPlayer, player2: PongPlayer):
+        self.screen_width = screen_width
+        self.screen_height = screen_height
+        self.ball = Ball(screen_width, screen_height)
+        self.paddle1 = Paddle(screen_width, screen_height, True)
+        self.paddle2 = Paddle(screen_width, screen_height, False)
         self.player1 = player1
         self.player2 = player2
     
@@ -31,6 +32,6 @@ class PongGame:
     def is_point_for_player(self):
         if self.ball.x < 0:
             return 2
-        if self.ball.x > self.screen.get_width():
+        if self.ball.x > self.screen_width:
             return 1
         return 0
