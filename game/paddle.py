@@ -2,12 +2,6 @@ class Paddle:
     def __init__(self, screen_width: int, screen_height: int, player1: bool):
         self.screen_width = screen_width
         self.screen_height = screen_height
-        self.margin = 10
-        self.width = 20
-        if player1:
-            self.left = self.margin
-        else:
-            self.left = screen_width - self.margin - self.width
         self.top = 4 * screen_height / 10
         self.height = 2 * screen_height / 10
 
