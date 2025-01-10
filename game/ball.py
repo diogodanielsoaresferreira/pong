@@ -29,9 +29,6 @@ class Ball:
             this._calculate_paddle_hit(paddle2)
             this.dx = -this.dx
 
-    def draw(this, screen: pygame.surface):
-        pygame.draw.circle(screen, "white", pygame.Vector2(this.x, this.y), 20)
-
     def _calculate_paddle_hit(this, paddle: Paddle):
         paddle_middle_point = paddle.get_middle_point()
         relative_position = ((this.y - paddle_middle_point) / (paddle.height / 2))

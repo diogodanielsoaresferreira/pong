@@ -32,7 +32,3 @@ class Paddle:
             this.top = this.screen.get_height() - this.height
         else:
             this.top = pos
-
-    def draw(this, screen: pygame.surface):
-        this.paddle_pos = pygame.Rect(this.left, this.top, this.width, this.height)
-        pygame.draw.rect(screen, "white", this.paddle_pos, 20)

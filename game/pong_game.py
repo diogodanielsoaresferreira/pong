@@ -34,8 +34,3 @@ class PongGame:
         if self.ball.x > self.screen.get_width():
             return 1
         return 0
-
-    def draw(self, screen: pygame.surface):
-        self.ball.draw(screen)
-        self.paddle1.draw(screen)
-        self.paddle2.draw(screen)

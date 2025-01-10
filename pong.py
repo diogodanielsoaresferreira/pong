@@ -10,26 +10,29 @@ from player.keyboard_ws_and_mouse_player import KeyboardWSAndMousePlayer
 from player.keyboard_arrow_mouse_player import KeyboardArrowAndMousePlayer
 from player.ai_player import AIPlayer
 from network.game_events import create_online_game, join_online_game
+from ui.screen import Screen
 
 SERVER_URI = "ws://localhost:8001"
 
-def run_pong(screen, player_1: PongPlayer, player_2: PongPlayer):
+def run_pong(screen: pygame.surface, player_1: PongPlayer, player_2: PongPlayer):
+    game_screen = Screen(screen)
     game = PongGame(screen, player_1, player_2)
-    font = pygame.font.Font(None, 80)
+    clock = pygame.time.Clock()
 
     player_1_score = 0
     player_2_score = 0
 
     while True:
-        screen.fill("black")
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
 
-        keys = pygame.key.get_pressed()
+        #game.update()
+        #player_won = game.is_point_for_player()
+        player_won = 0
 
-        game.update()
-        player_won = game.is_point_for_player()
+        keys = pygame.key.get_pressed()
 
         if keys[pygame.K_r]:
             player_1_score = 0
@@ -43,16 +46,12 @@ def run_pong(screen, player_1: PongPlayer, player_2: PongPlayer):
             player_2_score += 1
             game = PongGame(screen, player_1, player_2)
 
-        text = font.render(str(player_1_score) + "-" + str(player_2_score), 1, (255, 255, 255))
-        screen.blit(text, (screen.get_width() / 2 - 45, 10))
-        game.draw(screen)
-        pygame.display.flip()
-
+        game_screen.draw(player_1_score, player_2_score)
         clock.tick(60)
+
 
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
-clock = pygame.time.Clock()
 
 game_name = ''
 sub_menu_game_name = pygame_menu.Menu('Game name', 400, 300, theme=pygame_menu.themes.THEME_DARK)
