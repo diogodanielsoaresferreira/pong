@@ -1,8 +1,8 @@
 import pygame
-from paddle import Paddle
-from pong_player import PongPlayer
-from move_paddle import MovePaddle
-from ball import Ball
+from game.paddle import Paddle
+from player.pong_player import PongPlayer
+from game.move_paddle import MovePaddle
+from game.ball import Ball
 
 class KeyboardArrowPlayer(PongPlayer):
     def calculate_move(self, paddle: Paddle, ball: Ball) -> MovePaddle:

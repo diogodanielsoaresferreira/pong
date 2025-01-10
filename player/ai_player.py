@@ -1,7 +1,7 @@
-from pong_player import PongPlayer
-from move_paddle import MovePaddle
-from paddle import Paddle
-from ball import Ball
+from player.pong_player import PongPlayer
+from game.move_paddle import MovePaddle
+from game.paddle import Paddle
+from game.ball import Ball
 
 class AIPlayer(PongPlayer):
     def calculate_move(self, paddle: Paddle, ball: Ball) -> MovePaddle:

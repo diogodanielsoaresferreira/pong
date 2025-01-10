@@ -6,3 +6,4 @@ class Events(Enum):
     JOIN = "join"
     JOINED = "joined"
     ERROR = "error"
+    STATE = "state"

@@ -1,8 +1,8 @@
 import pygame
-from ball import Ball
-from paddle import Paddle
-from pong_player import PongPlayer
-from move_paddle import MovePaddle
+from game.ball import Ball
+from game.paddle import Paddle
+from player.pong_player import PongPlayer
+from game.move_paddle import MovePaddle
 
 class PongGame:
     def __init__(self, screen: pygame.surface, player1: PongPlayer, player2: PongPlayer):

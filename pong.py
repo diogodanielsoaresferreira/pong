@@ -3,8 +3,8 @@ import asyncio
 import pygame
 import pygame_menu
 
-from pong_game import PongGame
-from pong_player import PongPlayer
+from game.pong_game import PongGame
+from player.pong_player import PongPlayer
 from player.keyboard_arrow_player import KeyboardArrowPlayer
 from player.keyboard_ws_and_mouse_player import KeyboardWSAndMousePlayer
 from player.keyboard_arrow_mouse_player import KeyboardArrowAndMousePlayer

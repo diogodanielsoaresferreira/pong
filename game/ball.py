@@ -1,7 +1,7 @@
 import random
 import pygame
 import math
-from paddle import Paddle
+from game.paddle import Paddle
 
 class Ball:
 
