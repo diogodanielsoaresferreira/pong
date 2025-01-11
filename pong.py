@@ -16,11 +16,15 @@ SERVER_URI = "ws://localhost:8001"
 
 def run_pong(screen: pygame.surface, player_1: PongPlayer, player_2: PongPlayer):
     game_screen = Screen(screen)
-    game = PongGame(screen.get_width(), screen.get_height(), player_1, player_2)
+    game = PongGame(screen.get_width(), screen.get_height())
     clock = pygame.time.Clock()
 
     player_1_score = 0
     player_2_score = 0
+
+    paddle_1_position = game.paddle1.get_position()
+    paddle_2_position = game.paddle2.get_position()
+    ball_position = game.ball.get_position()
 
     while True:
 
@@ -28,21 +32,24 @@ def run_pong(screen: pygame.surface, player_1: PongPlayer, player_2: PongPlayer)
             if event.type == pygame.QUIT:
                 sys.exit()
 
-        paddle_1_position, paddle_2_position, ball_position, player_won = game.update()
+        player_1_move = player_1.calculate_move(paddle_1_position, ball_position)
+        player_2_move = player_2.calculate_move(paddle_2_position, ball_position)
+        
+        paddle_1_position, paddle_2_position, ball_position, player_won = game.update(player_1_move, player_2_move)
 
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_r]:
             player_1_score = 0
             player_2_score = 0
-            game = PongGame(screen.get_width(), screen.get_height(), player_1, player_2)
+            game = PongGame(screen.get_width(), screen.get_height())
 
         if player_won == 1:
             player_1_score += 1
-            game = PongGame(screen.get_width(), screen.get_height(), player_1, player_2)
+            game = PongGame(screen.get_width(), screen.get_height())
         elif player_won == 2:
             player_2_score += 1
-            game = PongGame(screen.get_width(), screen.get_height(), player_1, player_2)
+            game = PongGame(screen.get_width(), screen.get_height())
 
         game_screen.draw(paddle_1_position, paddle_2_position, ball_position, player_1_score, player_2_score)
         clock.tick(60)
@@ -54,10 +61,10 @@ screen = pygame.display.set_mode((1280, 720))
 game_name = ''
 sub_menu_game_name = pygame_menu.Menu('Game name', 400, 300, theme=pygame_menu.themes.THEME_DARK)
 sub_menu_game_name.add.text_input('', default='', onchange=lambda value: globals().update(game_name=value))
-sub_menu_game_name.add.button('Join', lambda: asyncio.run(join_online_game(SERVER_URI, game_name)))
+sub_menu_game_name.add.button('Join', lambda: asyncio.run(join_online_game(screen, SERVER_URI, game_name)))
 
 sub_menu_online = pygame_menu.Menu('Online Mode', 400, 300, theme=pygame_menu.themes.THEME_DARK)
-sub_menu_online.add.button('Create game', lambda: asyncio.run(create_online_game(SERVER_URI)))
+sub_menu_online.add.button('Create game', lambda: asyncio.run(create_online_game(screen, SERVER_URI)))
 sub_menu_online.add.button('Join game', sub_menu_game_name)
 
 sub_menu_2_players = pygame_menu.Menu('2-Player Mode', 400, 300, theme=pygame_menu.themes.THEME_DARK)

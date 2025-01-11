@@ -7,3 +7,4 @@ class Events(Enum):
     JOINED = "joined"
     ERROR = "error"
     STATE = "state"
+    MOVE = "move"
