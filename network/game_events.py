@@ -5,6 +5,7 @@ from domain.paddle_position import PaddlePosition
 from game.move_paddle import MovePaddle
 from network.events import Events
 from websockets.asyncio.client import connect
+from player.ai_player import AIPlayer
 from player.keyboard_arrow_mouse_player import KeyboardArrowAndMousePlayer
 from ui.screen import Screen
 
@@ -19,6 +20,8 @@ async def create_online_game(screen: pygame.surface, server_uri: str):
             json_message = json.loads(message)
             if ("type" in json_message and json_message["type"] == Events.CREATED.value):
                 created = True
+                name = json_message["name"]
+                print("Created game with key: " + name)
         await run_game(screen, websocket, True)
 
 async def join_online_game(screen: pygame.surface, server_uri: str, game_name: str):
@@ -36,7 +39,7 @@ async def join_online_game(screen: pygame.surface, server_uri: str, game_name: s
 
 async def run_game(screen: pygame.surface, websocket: connect, player_1: bool):
     game_screen = Screen(screen)
-    player = KeyboardArrowAndMousePlayer()
+    player = AIPlayer()
     async for message in websocket:
         json_message = json.loads(message)
         if ("type" in json_message and json_message["type"] == Events.STATE.value):
