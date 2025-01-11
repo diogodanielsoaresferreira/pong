@@ -1,12 +1,13 @@
 from player.pong_player import PongPlayer
 from game.move_paddle import MovePaddle
-from game.paddle import Paddle
-from game.ball import Ball
+from domain.paddle_position import PaddlePosition
+from domain.ball_position import BallPosition
 
 class AIPlayer(PongPlayer):
-    def calculate_move(self, paddle: Paddle, ball: Ball) -> MovePaddle:
-        if ball.y < paddle.get_middle_point() - paddle.height/4:
+    def calculate_move(self, paddle_pos: PaddlePosition, ball_pos: BallPosition) -> MovePaddle:
+        y_middle_paddle = paddle_pos.top + paddle_pos.height / 2
+        if ball_pos.y < y_middle_paddle - paddle_pos.height/4:
             return MovePaddle.UP
-        if ball.y > paddle.get_middle_point() + paddle.height/4:
+        if ball_pos.y > y_middle_paddle + paddle_pos.height/4:
             return MovePaddle.DOWN
         return MovePaddle.NONE

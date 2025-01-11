@@ -7,6 +7,10 @@ class Rectangle:
         self.width = width
         self.height = height
     
+    def move(self, y: int, height: int):
+        self.y = y
+        self.height = height
+
     def draw(self, screen: pygame.surface):
         pos = pygame.Rect(self.x, self.y, self.width, self.height)
         pygame.draw.rect(screen, "white", pos, 20)
