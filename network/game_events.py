@@ -51,4 +51,4 @@ async def run_game(screen: pygame.surface, websocket: connect, player_1: bool):
             else:
                 move = player.calculate_move(paddle_2_position, ball_position)
             if move == MovePaddle.UP or move == MovePaddle.DOWN:
-                await websocket.send(json.dumps({"type": Events.MOVE.value, "move": MovePaddle.UP.value}))
+                await websocket.send(json.dumps({"type": Events.MOVE.value, "move": move.value}))

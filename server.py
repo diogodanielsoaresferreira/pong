@@ -13,7 +13,10 @@ GAMES = {}
 
 async def process_commands(websocket: connect, player_1: bool, name: str):
     async for message in websocket:
-        print("Received command" + message)
+        if player_1:
+            print("Received command " + message + " from player 1")
+        else:
+            print("Received command " + message + " from player 2")
         parsed_message = json.loads(message)
         if parsed_message["type"] == Events.MOVE.value:
             if player_1:
