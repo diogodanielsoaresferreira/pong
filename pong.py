@@ -2,6 +2,7 @@ import sys
 import asyncio
 import pygame
 import pygame_menu
+import pyperclip
 
 from game.pong_game import PongGame
 from player.pong_player import PongPlayer
@@ -55,12 +56,21 @@ def run_pong(screen: pygame.surface, player_1: PongPlayer, player_2: PongPlayer)
         clock.tick(60)
 
 
+
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
 
 game_name = ''
+
 sub_menu_game_name = pygame_menu.Menu('Game name', 400, 300, theme=pygame_menu.themes.THEME_DARK)
-sub_menu_game_name.add.text_input('', default='', onchange=lambda value: globals().update(game_name=value))
+text_input = sub_menu_game_name.add.text_input('', default='', onchange=lambda value: globals().update(game_name=value))
+
+def set_game_name(name):
+    global game_name
+    game_name = name
+    text_input.set_value(game_name)
+
+sub_menu_game_name.add.button('Paste', lambda: set_game_name(pyperclip.paste()))
 sub_menu_game_name.add.button('Join', lambda: asyncio.run(join_online_game(screen, SERVER_URI, game_name)))
 
 sub_menu_online = pygame_menu.Menu('Online Mode', 400, 300, theme=pygame_menu.themes.THEME_DARK)
