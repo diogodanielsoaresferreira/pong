@@ -12,16 +12,15 @@ GAMES = {}
 
 async def process_commands(websocket: connect, player_1: bool, name: str):
     async for message in websocket:
-        if player_1:
-            print("Received command " + message + " from player 1")
-        else:
-            print("Received command " + message + " from player 2")
         parsed_message = json.loads(message)
         if parsed_message["type"] == Events.MOVE.value:
+            move = parsed_message["move"]
             if player_1:
-                GAMES[name][1] = MovePaddle(parsed_message["move"])
+                print("Received command " + str(move) + " from player 1")
+                GAMES[name][1] = MovePaddle(move)
             else:
-                GAMES[name][2] = MovePaddle(parsed_message["move"])
+                print("Received command " + str(move) + " from player 2")
+                GAMES[name][2] = MovePaddle(move)
 
 async def run_pong(name: str):
     print("Starting pong")

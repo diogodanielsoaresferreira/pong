@@ -10,6 +10,7 @@ class KeyboardArrowAndMousePlayer(PongPlayer):
         self.use_mouse = False
 
     def calculate_move(self, paddle_pos: PaddlePosition, ball_pos: BallPosition) -> MovePaddle:
+        pygame.event.pump()
         (_, y_rel) = pygame.mouse.get_rel()
         (_, y_pos) = pygame.mouse.get_pos()
         y_middle_paddle = paddle_pos.top + paddle_pos.height / 2
