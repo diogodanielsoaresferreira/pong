@@ -53,6 +53,9 @@ Welcome to **Pong Game**, a modern take on the classic arcade game. This project
 ### Single Player
 - Compete against an AI that dynamically adjusts to your playstyle.
 
+### Multiplayer
+- Compete against your friend in the same computer.
+
 ### Online Multiplayer
 - Connect to the server, create a game, and invite your friends.
 - Responsive paddle movements with minimal latency.
