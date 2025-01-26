@@ -28,7 +28,11 @@ async def run_pong(name: str):
     player_1_score = 0
     player_2_score = 0
     while True:
-        connected, player_1_move, player_2_move = GAMES[name]
+        try:
+            connected, player_1_move, player_2_move = GAMES[name]
+        except KeyError:
+            print("Game in room " + name + " finished.")
+            return
         paddle_1_position, paddle_2_position, ball_position, player_won = game.update(player_1_move, player_2_move)
         if player_won == 1:
             player_1_score += 1
@@ -54,7 +58,10 @@ async def start(websocket: connect, name: str):
         await websocket.send(json.dumps({"type": Events.CREATED.value, "name": name}))
         await process_commands(websocket, True, name)
     finally:
-        del GAMES[name]
+        try:
+            del GAMES[name]
+        except KeyError:
+            pass
 
 async def join(websocket: connect, name: str):
     print("Joining game: " + name)
@@ -78,6 +85,10 @@ async def join(websocket: connect, name: str):
         await process_commands(websocket, False, name)
     finally:
         connected.remove(websocket)
+        try:
+            del GAMES[name]
+        except KeyError:
+            pass
 
 async def handler(websocket):
     message = await websocket.recv()
