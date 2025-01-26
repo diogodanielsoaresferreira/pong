@@ -63,18 +63,22 @@ screen = pygame.display.set_mode((1280, 720))
 game_name = ''
 
 sub_menu_game_name = pygame_menu.Menu('Game name', 400, 300, theme=pygame_menu.themes.THEME_DARK)
-text_input = sub_menu_game_name.add.text_input('', default='', onchange=lambda value: globals().update(game_name=value))
+text_input_join = sub_menu_game_name.add.text_input('', default='', onchange=lambda value: globals().update(game_name=value))
 
 def set_game_name(name):
     global game_name
     game_name = name
-    text_input.set_value(game_name)
+    text_input_join.set_value(game_name)
 
 sub_menu_game_name.add.button('Paste', lambda: set_game_name(pyperclip.paste()))
 sub_menu_game_name.add.button('Join', lambda: asyncio.run(join_online_game(screen, SERVER_URI, game_name)))
 
+sub_menu_new_game = pygame_menu.Menu('New game', 400, 300, theme=pygame_menu.themes.THEME_DARK)
+text_input = sub_menu_new_game.add.text_input('', default='', onchange=lambda value: globals().update(game_name=value))
+sub_menu_new_game.add.button('Create room', lambda: asyncio.run(create_online_game(screen, SERVER_URI, game_name)))
+
 sub_menu_online = pygame_menu.Menu('Online Mode', 400, 300, theme=pygame_menu.themes.THEME_DARK)
-sub_menu_online.add.button('Create game', lambda: asyncio.run(create_online_game(screen, SERVER_URI)))
+sub_menu_online.add.button('Create game', sub_menu_new_game)
 sub_menu_online.add.button('Join game', sub_menu_game_name)
 
 sub_menu_2_players = pygame_menu.Menu('2-Player Mode', 400, 300, theme=pygame_menu.themes.THEME_DARK)

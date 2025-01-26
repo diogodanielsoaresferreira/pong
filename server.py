@@ -1,6 +1,5 @@
 import asyncio
 import json
-import secrets
 
 from websockets import connect
 from game.move_paddle import MovePaddle
@@ -48,18 +47,17 @@ async def run_pong(name: str):
         }))
         await asyncio.sleep(1 / 60)
 
-async def start(websocket):
+async def start(websocket: connect, name: str):
     print("Starting game")
-    game_name = secrets.token_urlsafe(12)
-    GAMES[game_name] = [[websocket], MovePaddle.NONE, MovePaddle.NONE]
-    print("Created game with key: " + game_name)
+    GAMES[name] = [[websocket], MovePaddle.NONE, MovePaddle.NONE]
+    print("Created game with name: " + name)
     try:
-        await websocket.send(json.dumps({"type": Events.CREATED.value, "name": game_name}))
-        await process_commands(websocket, True, game_name)
+        await websocket.send(json.dumps({"type": Events.CREATED.value, "name": name}))
+        await process_commands(websocket, True, name)
     finally:
-        del GAMES[game_name]
+        del GAMES[name]
 
-async def join(websocket, name):
+async def join(websocket: connect, name: str):
     print("Joining game: " + name)
     try:
         connected, _, _ = GAMES[name]
@@ -92,7 +90,7 @@ async def handler(websocket):
     if event["type"] == Events.JOIN.value:
         await join(websocket, event["name"])
     elif event["type"] == Events.CREATE.value:
-        await start(websocket)
+        await start(websocket, event["name"])
 
 async def main():
     async with serve(handler, "", 8001):

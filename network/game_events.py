@@ -8,10 +8,9 @@ from websockets.asyncio.client import connect
 from player.ai_player import AIPlayer
 from player.keyboard_arrow_mouse_player import KeyboardArrowAndMousePlayer
 from ui.screen import Screen
-from ui.menu import createMenuWithGameName
 
-async def create_online_game(screen: pygame.surface, server_uri: str):
-    event = {"type": Events.CREATE.value}
+async def create_online_game(screen: pygame.surface, server_uri: str, game_name: str):
+    event = {"type": Events.CREATE.value, "name": game_name}
     print("Creating game")
     async with connect(server_uri) as websocket:
         await websocket.send(json.dumps(event))
@@ -23,7 +22,6 @@ async def create_online_game(screen: pygame.surface, server_uri: str):
                 created = True
                 name = json_message["name"]
                 print("Created game with key: " + name)
-                createMenuWithGameName(screen, name)
         await run_game(screen, websocket, True)
 
 async def join_online_game(screen: pygame.surface, server_uri: str, game_name: str):
