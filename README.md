@@ -2,7 +2,7 @@
 
 Welcome to **Pong Game**, a modern take on the classic arcade game. This project features multiplayer gameplay, a server-client architecture, and smooth paddle controls, supporting both mouse and keyboard inputs.
 
-![Gameplay Screenshot](imgs/game_screenshot.png)
+![Gameplay Screenshot](imgs/pong_game.png)
 
 ---
 
